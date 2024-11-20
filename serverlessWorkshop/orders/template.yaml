@@ -11,7 +11,7 @@ Parameters:
   UserPool:
     Type: String
     Description: User Pool ID produced by the Users module
-   
+
 Resources: 
   OrdersTable:  # Creates the DynamoDB table with userId and orderId as the keys
     Type: AWS::DynamoDB::Table
@@ -26,7 +26,7 @@ Resources:
           KeyType: "HASH"
         - AttributeName: "orderId"
           KeyType: "RANGE"
-      BillingMode: PAY_PER_REQUEST  # user pay-per-request billing
+      BillingMode: PAY_PER_REQUEST  # Use pay-per-request billing
 
   WorkshopApiGateway:  # Defines the API Gateway
     Type: AWS::Serverless::Api 
@@ -37,7 +37,8 @@ Resources:
         Authorizers:
           Module3CognitoAuthorizer:  # Sets Cognito user pool as default authorizer for API requests
             UserPoolArn: !Sub "arn:aws:cognito-idp:${AWS::Region}:${AWS::AccountId}:userpool/${UserPool}"
-  AddOrderFunction:
+
+  AddOrderFunction:  # Lambda function to handle order creation
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: src/api/order/create
@@ -57,10 +58,24 @@ Resources:
             Path: /orders
             Method: post
             RestApiId: !Ref WorkshopApiGateway
+
+  PyUtils:  # Lambda Layer for shared utilities
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: pyutils
+      Description: Shared utilities for Orders service 
+      ContentUri: src/layers/
+      CompatibleRuntimes:
+        - python3.9
+      RetentionPolicy: Delete
+    Metadata:
+      BuildMethod: python3.9
+
 Outputs:
   OrdersServiceEndpoint:  # Returns the API URL
     Description: "API Gateway endpoint URL"
     Value: !Sub "https://${WorkshopApiGateway}.execute-api.${AWS::Region}.amazonaws.com/Prod"
-  OrdersTable:
-    Description: "DynamoDb Orders Table"
+
+  OrdersTable:  # Outputs the DynamoDB table reference
+    Description: "DynamoDB Orders Table"
     Value: !Ref OrdersTable
