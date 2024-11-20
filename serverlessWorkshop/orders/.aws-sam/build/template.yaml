@@ -60,12 +60,24 @@ Resources:
               Ref: WorkshopApiGateway
     Metadata:
       SamResourceId: AddOrderFunction
+  PyUtils:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: pyutils
+      Description: Shared utilities for Orders service
+      ContentUri: PyUtils
+      CompatibleRuntimes:
+      - python3.9
+      RetentionPolicy: Delete
+    Metadata:
+      BuildMethod: python3.9
+      SamResourceId: PyUtils
 Outputs:
   OrdersServiceEndpoint:
     Description: API Gateway endpoint URL
     Value:
       Fn::Sub: https://${WorkshopApiGateway}.execute-api.${AWS::Region}.amazonaws.com/Prod
   OrdersTable:
-    Description: DynamoDb Orders Table
+    Description: DynamoDB Orders Table
     Value:
       Ref: OrdersTable
