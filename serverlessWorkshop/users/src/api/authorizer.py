@@ -11,7 +11,7 @@ from jose.utils import base64url_decode
 
 # *** Section 1 : base setup and token validation helper function
 is_cold_start = True
-keys = {"alg":"RS256","e":"AQAB","kid":"Q7S7fTTYE8uyecAffbOjy9yikvbVCG5Ng1F3Vbu+mDA=","kty":"RSA","n":"6AsrGQBAwubZy8FKhUhw8g2p5t7pSe8dN7quqvmlj-VRYpaqB0kPWnRJGraBYzn4T_st7jcvDu7sb6xb5hL6L_xZBmT90l0N97PeHEi8u5T3xyooj5T68yT4sQDxDUy5AbCEhIw6ekeg2XddZxDJv3xGbsF_UQ2VNr7kYR2gUZpH8RQIy4ni_dYXxX1mn_0REAwoJQzwSXpMhsOKSN-C0To4JGKbtHOPPsYNbNVxkLk_TYbN_pOPTHl-_D30iNxwzobp9zdwoiKKenECOcNHzFsw_55o7y7nYm_MNJc-jmu3xbo0f4bHPIEYUWW2TWjh0xNpjK3WTGnTKqhFiQWvZQ","use":"sig"}
+keys = {}
 user_pool_id = os.getenv('USER_POOL_ID', None)
 app_client_id = os.getenv('APPLICATION_CLIENT_ID', None)
 admin_group_name = os.getenv('ADMIN_GROUP_NAME', None)
@@ -141,17 +141,17 @@ class AuthPolicy(object):
     allowMethods = []
     denyMethods = []
 
-    restApiId = "<<restApiId>>"
+    restApiId = "idy8k95hf6"
     """ Replace the placeholder value with a default API Gateway API id to be used in the policy. 
     Beware of using '*' since it will not simply mean any API Gateway API id, because stars will greedily expand over '/' or other separators. 
     See https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_resource.html for more details. """
 
-    region = "<<region>>"
+    region = "eu-west-1"
     """ Replace the placeholder value with a default region to be used in the policy. 
     Beware of using '*' since it will not simply mean any region, because stars will greedily expand over '/' or other separators. 
     See https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_resource.html for more details. """
 
-    stage = "<<stage>>"
+    stage = "Prod"
     """ Replace the placeholder value with a default stage to be used in the policy. 
     Beware of using '*' since it will not simply mean any stage, because stars will greedily expand over '/' or other separators. 
     See https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_resource.html for more details. """
