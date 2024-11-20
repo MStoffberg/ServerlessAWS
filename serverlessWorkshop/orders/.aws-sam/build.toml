@@ -27,6 +27,15 @@ manifest_hash = ""
 packagetype = "Zip"
 functions = ["ListOrdersFunction"]
 
+[function_build_definitions.9234c1a9-78c2-42e6-a30b-3abbdf50eeea]
+codeuri = "/home/stoff/Serverless/serverlessWorkshop/orders/src/api/order/edit"
+runtime = "python3.9"
+architecture = "x86_64"
+handler = "edit_order.lambda_handler"
+manifest_hash = ""
+packagetype = "Zip"
+functions = ["EditOrderFunction"]
+
 [layer_build_definitions.8149182f-fd20-4fc0-9bbe-bcb95e06b6f4]
 layer_name = "PyUtils"
 codeuri = "/home/stoff/Serverless/serverlessWorkshop/orders/src/layers"
